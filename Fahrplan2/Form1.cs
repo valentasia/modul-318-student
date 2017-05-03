@@ -37,7 +37,7 @@ namespace Fahrplan2
                     ConnectionPoint to = result.To;
 
                     ListView LVverbindung = new ListView();
-                    LVverbindung.Bounds = new Rectangle(new Point(360, 30), new Size(630, 200));
+                    LVverbindung.Bounds = new Rectangle(new Point(30, 280), new Size(630, 200));
 
                     // Set the view to show details.
                     LVverbindung.View = View.Details;
@@ -104,5 +104,5 @@ namespace Fahrplan2
         {
 
         }
-    }
+    } 
 }
