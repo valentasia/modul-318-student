@@ -35,13 +35,14 @@
             this.Nachtb = new System.Windows.Forms.TextBox();
             this.Von = new System.Windows.Forms.Label();
             this.Nach = new System.Windows.Forms.Label();
-            this.Search = new System.Windows.Forms.Button();
+            this.BtSearch = new System.Windows.Forms.Button();
             this.LabelFehler = new System.Windows.Forms.Label();
             this.LVverbindung = new System.Windows.Forms.ListView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ComboListe = new System.Windows.Forms.ComboBox();
+            this.BtListe = new System.Windows.Forms.Button();
             this.dTPTime = new System.Windows.Forms.DateTimePicker();
             this.Datum = new System.Windows.Forms.Label();
+            this.LVtafel = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // Stationtb
@@ -68,6 +69,7 @@
             this.Search2.TabIndex = 60;
             this.Search2.Text = "Search";
             this.Search2.UseVisualStyleBackColor = true;
+            this.Search2.Click += new System.EventHandler(this.Search2_Click);
             // 
             // Vontb
             // 
@@ -101,15 +103,15 @@
             this.Nach.TabIndex = 49;
             this.Nach.Text = "Nach:";
             // 
-            // Search
+            // BtSearch
             // 
-            this.Search.Location = new System.Drawing.Point(79, 155);
-            this.Search.Name = "Search";
-            this.Search.Size = new System.Drawing.Size(75, 23);
-            this.Search.TabIndex = 50;
-            this.Search.Text = "Search";
-            this.Search.UseVisualStyleBackColor = true;
-            this.Search.Click += new System.EventHandler(this.Search_Click);
+            this.BtSearch.Location = new System.Drawing.Point(79, 155);
+            this.BtSearch.Name = "BtSearch";
+            this.BtSearch.Size = new System.Drawing.Size(75, 23);
+            this.BtSearch.TabIndex = 50;
+            this.BtSearch.Text = "Search";
+            this.BtSearch.UseVisualStyleBackColor = true;
+            this.BtSearch.Click += new System.EventHandler(this.Search_Click);
             // 
             // LabelFehler
             // 
@@ -129,23 +131,25 @@
             this.LVverbindung.TabIndex = 57;
             this.LVverbindung.UseCompatibleStateImageBehavior = false;
             // 
-            // comboBox1
+            // ComboListe
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(294, 66);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(200, 21);
-            this.comboBox1.TabIndex = 61;
+            this.ComboListe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.ComboListe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.ComboListe.FormattingEnabled = true;
+            this.ComboListe.Location = new System.Drawing.Point(294, 66);
+            this.ComboListe.Name = "ComboListe";
+            this.ComboListe.Size = new System.Drawing.Size(200, 21);
+            this.ComboListe.TabIndex = 61;
             // 
-            // button1
+            // BtListe
             // 
-            this.button1.Location = new System.Drawing.Point(294, 98);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "Liste";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BtListe.Location = new System.Drawing.Point(294, 98);
+            this.BtListe.Name = "BtListe";
+            this.BtListe.Size = new System.Drawing.Size(75, 23);
+            this.BtListe.TabIndex = 62;
+            this.BtListe.Text = "Liste";
+            this.BtListe.UseVisualStyleBackColor = true;
+            this.BtListe.Click += new System.EventHandler(this.button2_Click);
             // 
             // dTPTime
             // 
@@ -163,27 +167,36 @@
             this.Datum.TabIndex = 64;
             this.Datum.Text = "Datum:";
             // 
+            // LVtafel
+            // 
+            this.LVtafel.Location = new System.Drawing.Point(642, 134);
+            this.LVtafel.Name = "LVtafel";
+            this.LVtafel.Size = new System.Drawing.Size(569, 330);
+            this.LVtafel.TabIndex = 65;
+            this.LVtafel.UseCompatibleStateImageBehavior = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1221, 494);
+            this.Controls.Add(this.LVtafel);
             this.Controls.Add(this.Datum);
             this.Controls.Add(this.dTPTime);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.BtListe);
+            this.Controls.Add(this.ComboListe);
             this.Controls.Add(this.Search2);
             this.Controls.Add(this.station);
             this.Controls.Add(this.Stationtb);
             this.Controls.Add(this.LVverbindung);
             this.Controls.Add(this.LabelFehler);
-            this.Controls.Add(this.Search);
+            this.Controls.Add(this.BtSearch);
             this.Controls.Add(this.Nach);
             this.Controls.Add(this.Von);
             this.Controls.Add(this.Nachtb);
             this.Controls.Add(this.Vontb);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Fahrplan";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,13 +210,14 @@
         private System.Windows.Forms.TextBox Nachtb;
         private System.Windows.Forms.Label Von;
         private System.Windows.Forms.Label Nach;
-        private System.Windows.Forms.Button Search;
+        private System.Windows.Forms.Button BtSearch;
         private System.Windows.Forms.Label LabelFehler;
         private System.Windows.Forms.ListView LVverbindung;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox ComboListe;
+        private System.Windows.Forms.Button BtListe;
         private System.Windows.Forms.DateTimePicker dTPTime;
         private System.Windows.Forms.Label Datum;
+        private System.Windows.Forms.ListView LVtafel;
     }
 }
 

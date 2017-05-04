@@ -14,10 +14,12 @@ namespace Fahrplan2
     public partial class MainForm : Form
     {
         private ITransport testee;
+
         public MainForm()
         {
             InitializeComponent();
-            InitLists();
+            Tabelle();
+            testee = new Transport();
             dTPTime.Format = DateTimePickerFormat.Custom;
             dTPTime.CustomFormat = "dd.MM.yyyy | HH:mm"; 
         }
@@ -30,7 +32,8 @@ namespace Fahrplan2
                 }
                     else
                     {
-                LVverbindung.Items.Clear();
+                        LVverbindung.Items.Clear();
+
                         String inputTime = dTPTime.Text;
                         var date = DateTime.Parse(inputTime.Substring(0, 10));
                         String formatDate = date.ToString("yyyy-MM-dd");
@@ -38,8 +41,8 @@ namespace Fahrplan2
 
                         testee = new Transport();
                         var connections = testee.GetConnections(Vontb.Text, Nachtb.Text);
-
-                        for(int i = 0; i < connections.ConnectionList.Count; i++)
+              
+                        for (int i = 0; i < connections.ConnectionList.Count; i++)
                         {
                             Connection result = connections.ConnectionList[i];
 
@@ -51,15 +54,14 @@ namespace Fahrplan2
                             var item = new ListViewItem(new[] { verbindung.getStartStation(), verbindung.getEndStation(), verbindung.getDeparture(), verbindung.getArrival(), verbindung.getDuration() });
 
                             LVverbindung.Items.Add(item);
-                            LVverbindung.Bounds = new Rectangle(new Point(30, 280), new Size(630, 200));
-                    
+                            
                                                                           
                         }
                     Vontb.Clear();
                     Nachtb.Clear();
                 }
             }
-        private void InitLists()
+        private void Tabelle()
         {
             LVverbindung.View = View.Details;
             LVverbindung.Columns.Add("Von:", 140, HorizontalAlignment.Left);
@@ -67,30 +69,46 @@ namespace Fahrplan2
             LVverbindung.Columns.Add("Nach:", 140, HorizontalAlignment.Left);
             LVverbindung.Columns.Add("Ankunft:", 120, HorizontalAlignment.Left);
             LVverbindung.Columns.Add("Dauer:", 100, HorizontalAlignment.Left);
+
+            LVtafel.View = View.Details;
+            LVtafel.Columns.Add("Abfahrt:", 120, HorizontalAlignment.Left);
+            LVtafel.Columns.Add("Katogerie:", 65, HorizontalAlignment.Left);
+            LVtafel.Columns.Add("Name:", 50, HorizontalAlignment.Left);
+            LVtafel.Columns.Add("Von:", 130, HorizontalAlignment.Left);
+            LVtafel.Columns.Add("Nach:", 130, HorizontalAlignment.Left);
         }
-           
-        private void label2_Click(object sender, EventArgs e)
+      
+        private void button2_Click(object sender, EventArgs e)
         {
+            String eingabe =  ComboListe.Text;
 
-        }
-
-        private void Clear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            String input = comboBox1.Text;
-
-            var stations = testee.GetStations(input);
+            var stations =  testee.GetStations(eingabe);
 
             foreach (Station stationName in stations.StationList)
             {
-                comboBox1.Items.Add(stationName.Name);
+                ComboListe.Items.Add(stationName.Name);
             }
-            this.comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this.comboBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
+
+        private void Search2_Click(object sender, EventArgs e)
+        {
+            LVtafel.Items.Clear();
+
+            testee = new Transport();
+            Stations stations = testee.GetStations(Stationtb.Text);
+            Station station = stations.StationList[0];
+            String id = station.Id;
+
+            StationBoardRoot stationBoard = testee.GetStationBoard(Stationtb.Text, id);
+
+            foreach (StationBoard entries in stationBoard.Entries)
+            {
+                var item = new ListViewItem(new[] { entries.Stop.Departure.ToString(), entries.Category, entries.Name, station.Name, entries.To });
+                LVtafel.Items.Add(item);
+            }
+            Stationtb.Clear();
+        }
+
+       
     } 
 }
