@@ -13,7 +13,7 @@ namespace Fahrplan2
 {
     public partial class MainForm : Form
     {
-        private ITransport testee;
+        private ITransport transport;
         private bool needAutoCompleteUpdate = false;
         AutoCompleteStringCollection autoComplete = new AutoCompleteStringCollection();
 
@@ -21,12 +21,12 @@ namespace Fahrplan2
         {
             InitializeComponent();
             Tabelle(); // Tabelle laden
-            testee = new Transport(); 
+            transport = new Transport(); 
             dTPTime.Format = DateTimePickerFormat.Custom;  
             dTPTime.CustomFormat = "dd.MM.yyyy | HH:mm"; // Datumsformat angepasst
         }
 
-        private void Search_Click(object sender, EventArgs e)
+        private void SearchButton_Click(object sender, EventArgs e)
         {
             if (Vontb.Text == "" || Nachtb.Text == "")
             {
@@ -42,7 +42,7 @@ namespace Fahrplan2
                 String time = inputTime.Substring(12, 6); // Datum und Uhrzeit formatieren 
 
                 
-                var connections = testee.GetConnections(Vontb.Text, Nachtb.Text, formatDate, time);
+                var connections = transport.GetConnections(Vontb.Text, Nachtb.Text, formatDate, time);
 
                 for (int i = 0; i < connections.ConnectionList.Count; i++)
                 {
@@ -80,18 +80,7 @@ namespace Fahrplan2
             LVtafel.Columns.Add("Nach:", 130, HorizontalAlignment.Left);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-                String eingabe = ComboListe.Text;
-
-                var stations = testee.GetStations(eingabe);
-
-                foreach (Station stationName in stations.StationList)
-                {
-                    ComboListe.Items.Add(stationName.Name); // Alle Stationen hinzufügen
-                }          
-        }
-        private void Search2_Click(object sender, EventArgs e)
+        private void SearchButton2_Click(object sender, EventArgs e)
         {
             LVtafel.Items.Clear();
 
@@ -101,12 +90,12 @@ namespace Fahrplan2
             }
             else
             {
-                testee = new Transport();
-                Stations stations = testee.GetStations(Stationtb.Text);
+                transport = new Transport();
+                Stations stations = transport.GetStations(Stationtb.Text);
                 Station station = stations.StationList[0];
                 String id = station.Id;
 
-                StationBoardRoot stationBoard = testee.GetStationBoard(Stationtb.Text, id);
+                StationBoardRoot stationBoard = transport.GetStationBoard(Stationtb.Text, id);
 
                 foreach (StationBoard entries in stationBoard.Entries)
                 {
@@ -120,10 +109,10 @@ namespace Fahrplan2
 
         }
 
-        private void lkarte_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void karte_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
-            Stations stations = testee.GetStations(Vontb.Text);
+            Stations stations = transport.GetStations(Vontb.Text);
 
             if (stations.StationList.Count > 0)
             {
@@ -136,9 +125,9 @@ namespace Fahrplan2
             }
         }
 
-        private void lkarte2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void karte2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Stations stations = testee.GetStations(Nachtb.Text);
+            Stations stations = transport.GetStations(Nachtb.Text);
 
             if (stations.StationList.Count > 0)
             {
@@ -151,13 +140,24 @@ namespace Fahrplan2
             }
         }
 
-        private void ComboListe_TextChanged(object sender, EventArgs e)
+       
+
+        private void Switch_Click(object sender, EventArgs e)
+        {
+            String input1 = Vontb.Text;
+            String input2 = Nachtb.Text;
+
+            Nachtb.Text = input1;
+            Vontb.Text = input2;
+        }
+
+        private void Vontb_TextChanged(object sender, EventArgs e)
         {
             {
                 if (AutoCom.Checked)
                 {
 
-                    var input = ComboListe.Text;
+                    var input = Vontb.Text;
 
                     if (input.Length >= 3)
                     {
@@ -169,23 +169,59 @@ namespace Fahrplan2
                     }
                     if (needAutoCompleteUpdate)
                     {
-                        var stations = testee.GetStations(input);
+                        var stations = transport.GetStations(input);
 
                         foreach (Station stationName in stations.StationList)
                         {
-                            ComboListe.AutoCompleteCustomSource.Add(stationName.Name);
+                            Vontb.AutoCompleteCustomSource.Add(stationName.Name);
                         }
-                         this.ComboListe.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                         this.ComboListe.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                         this.ComboListe.AutoCompleteCustomSource = autoComplete;
+                        this.Vontb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        this.Vontb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                        this.Vontb.AutoCompleteCustomSource = autoComplete;
                     }
                 }
                 else
                 {
-                    this.ComboListe.AutoCompleteMode = AutoCompleteMode.None;
+                    this.Vontb.AutoCompleteMode = AutoCompleteMode.None;
                 }
             }
 
+        }
+
+        private void Nachtb_TextChanged(object sender, EventArgs e)
+        {
+            {
+                if (AutoCom.Checked)
+                {
+
+                    var input = Nachtb.Text;
+
+                    if (input.Length >= 3)
+                    {
+                        needAutoCompleteUpdate = true;
+                    }
+                    else
+                    {
+                        needAutoCompleteUpdate = false;
+                    }
+                    if (needAutoCompleteUpdate)
+                    {
+                        var stations = transport.GetStations(input);
+
+                        foreach (Station stationName in stations.StationList)
+                        {
+                            Nachtb.AutoCompleteCustomSource.Add(stationName.Name);
+                        }
+                        this.Nachtb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        this.Nachtb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                        this.Nachtb.AutoCompleteCustomSource = autoComplete;
+                    }
+                }
+                else
+                {
+                    this.Nachtb.AutoCompleteMode = AutoCompleteMode.None;
+                }
+            }
         }
     }
  }
