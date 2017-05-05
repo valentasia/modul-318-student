@@ -41,7 +41,6 @@ namespace Fahrplan2
                 String formatDate = date.ToString("yyyy-MM-dd");
                 String time = inputTime.Substring(12, 6); // Datum und Uhrzeit formatieren 
 
-                
                 var connections = transport.GetConnections(Vontb.Text, Nachtb.Text, formatDate, time);
 
                 for (int i = 0; i < connections.ConnectionList.Count; i++)
@@ -56,8 +55,6 @@ namespace Fahrplan2
                     var item = new ListViewItem(new[] { verbindung.getStartStation(), verbindung.getEndStation(), verbindung.getDeparture(), verbindung.getArrival(), verbindung.getDuration() });
 
                     LVverbindung.Items.Add(item); // Datensätze zur Fahrplan hinzufügen  
-
-
                 }
                 LabelFehler.Visible = false;
             }
@@ -159,7 +156,7 @@ namespace Fahrplan2
 
                     var input = Vontb.Text;
 
-                    if (input.Length >= 3)
+                    if (input.Length > 3)
                     {
                         needAutoCompleteUpdate = true;
                     }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.Stationtb = new System.Windows.Forms.TextBox();
             this.station = new System.Windows.Forms.Label();
             this.Search2 = new System.Windows.Forms.Button();
@@ -55,7 +56,7 @@
             this.Stationtb.Location = new System.Drawing.Point(704, 69);
             this.Stationtb.Name = "Stationtb";
             this.Stationtb.Size = new System.Drawing.Size(200, 20);
-            this.Stationtb.TabIndex = 58;
+            this.Stationtb.TabIndex = 8;
             // 
             // station
             // 
@@ -71,7 +72,7 @@
             this.Search2.Location = new System.Drawing.Point(704, 98);
             this.Search2.Name = "Search2";
             this.Search2.Size = new System.Drawing.Size(75, 23);
-            this.Search2.TabIndex = 60;
+            this.Search2.TabIndex = 9;
             this.Search2.Text = "Search";
             this.Search2.UseVisualStyleBackColor = true;
             this.Search2.Click += new System.EventHandler(this.SearchButton2_Click);
@@ -99,7 +100,7 @@
             this.BtSearch.Location = new System.Drawing.Point(69, 176);
             this.BtSearch.Name = "BtSearch";
             this.BtSearch.Size = new System.Drawing.Size(75, 23);
-            this.BtSearch.TabIndex = 50;
+            this.BtSearch.TabIndex = 7;
             this.BtSearch.Text = "Search";
             this.BtSearch.UseVisualStyleBackColor = true;
             this.BtSearch.Click += new System.EventHandler(this.SearchButton_Click);
@@ -128,7 +129,7 @@
             this.dTPTime.Location = new System.Drawing.Point(69, 150);
             this.dTPTime.Name = "dTPTime";
             this.dTPTime.Size = new System.Drawing.Size(200, 20);
-            this.dTPTime.TabIndex = 63;
+            this.dTPTime.TabIndex = 6;
             // 
             // Datum
             // 
@@ -184,7 +185,7 @@
             this.lkarte.Location = new System.Drawing.Point(275, 72);
             this.lkarte.Name = "lkarte";
             this.lkarte.Size = new System.Drawing.Size(32, 13);
-            this.lkarte.TabIndex = 71;
+            this.lkarte.TabIndex = 2;
             this.lkarte.TabStop = true;
             this.lkarte.Text = "Karte";
             this.lkarte.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.karte_LinkClicked);
@@ -195,7 +196,7 @@
             this.lkarte2.Location = new System.Drawing.Point(275, 127);
             this.lkarte2.Name = "lkarte2";
             this.lkarte2.Size = new System.Drawing.Size(32, 13);
-            this.lkarte2.TabIndex = 72;
+            this.lkarte2.TabIndex = 4;
             this.lkarte2.TabStop = true;
             this.lkarte2.Text = "Karte";
             this.lkarte2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.karte2_LinkClicked);
@@ -206,7 +207,7 @@
             this.AutoCom.Location = new System.Drawing.Point(278, 99);
             this.AutoCom.Name = "AutoCom";
             this.AutoCom.Size = new System.Drawing.Size(129, 17);
-            this.AutoCom.TabIndex = 73;
+            this.AutoCom.TabIndex = 0;
             this.AutoCom.Text = "Automatisch ausfüllen";
             this.AutoCom.UseVisualStyleBackColor = true;
             // 
@@ -215,7 +216,7 @@
             this.button1.Location = new System.Drawing.Point(69, 95);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(200, 23);
-            this.button1.TabIndex = 74;
+            this.button1.TabIndex = 5;
             this.button1.Text = "Switch";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Switch_Click);
@@ -226,7 +227,7 @@
             this.Vontb.Location = new System.Drawing.Point(69, 69);
             this.Vontb.Name = "Vontb";
             this.Vontb.Size = new System.Drawing.Size(200, 21);
-            this.Vontb.TabIndex = 75;
+            this.Vontb.TabIndex = 1;
             this.Vontb.TextChanged += new System.EventHandler(this.Vontb_TextChanged);
             // 
             // Nachtb
@@ -235,7 +236,7 @@
             this.Nachtb.Location = new System.Drawing.Point(69, 124);
             this.Nachtb.Name = "Nachtb";
             this.Nachtb.Size = new System.Drawing.Size(200, 21);
-            this.Nachtb.TabIndex = 76;
+            this.Nachtb.TabIndex = 3;
             this.Nachtb.TextChanged += new System.EventHandler(this.Nachtb_TextChanged);
             // 
             // MainForm
@@ -264,6 +265,7 @@
             this.Controls.Add(this.BtSearch);
             this.Controls.Add(this.Nach);
             this.Controls.Add(this.Von);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Fahrplan";
             this.ResumeLayout(false);
