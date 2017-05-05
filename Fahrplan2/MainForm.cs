@@ -20,10 +20,10 @@ namespace Fahrplan2
         public MainForm()
         {
             InitializeComponent();
-            Tabelle();
-            testee = new Transport();
-            dTPTime.Format = DateTimePickerFormat.Custom;
-            dTPTime.CustomFormat = "dd.MM.yyyy | HH:mm"; 
+            Tabelle(); // Tabelle laden
+            testee = new Transport(); 
+            dTPTime.Format = DateTimePickerFormat.Custom;  
+            dTPTime.CustomFormat = "dd.MM.yyyy | HH:mm"; // Datumsformat angepasst
         }
 
         private void Search_Click(object sender, EventArgs e)
@@ -34,12 +34,12 @@ namespace Fahrplan2
             }
             else
             {
-                LVverbindung.Items.Clear();
+                LVverbindung.Items.Clear(); // Tabelle leeren
 
                 String inputTime = dTPTime.Text;
                 var date = DateTime.Parse(inputTime.Substring(0, 10));
                 String formatDate = date.ToString("yyyy-MM-dd");
-                String time = inputTime.Substring(12, 6); 
+                String time = inputTime.Substring(12, 6); // Datum und Uhrzeit formatieren 
 
                 
                 var connections = testee.GetConnections(Vontb.Text, Nachtb.Text, formatDate, time);
@@ -55,12 +55,10 @@ namespace Fahrplan2
 
                     var item = new ListViewItem(new[] { verbindung.getStartStation(), verbindung.getEndStation(), verbindung.getDeparture(), verbindung.getArrival(), verbindung.getDuration() });
 
-                    LVverbindung.Items.Add(item);
+                    LVverbindung.Items.Add(item); // Datensätze zur Fahrplan hinzufügen  
 
 
                 }
-                Vontb.Clear();
-                Nachtb.Clear();
                 LabelFehler.Visible = false;
             }
         }
@@ -90,7 +88,7 @@ namespace Fahrplan2
 
                 foreach (Station stationName in stations.StationList)
                 {
-                    ComboListe.Items.Add(stationName.Name);
+                    ComboListe.Items.Add(stationName.Name); // Alle Stationen hinzufügen
                 }          
         }
         private void Search2_Click(object sender, EventArgs e)
@@ -113,7 +111,7 @@ namespace Fahrplan2
                 foreach (StationBoard entries in stationBoard.Entries)
                 {
                     var item = new ListViewItem(new[] { entries.Stop.Departure.ToString(), entries.Name, station.Name, entries.To });
-                    LVtafel.Items.Add(item);
+                    LVtafel.Items.Add(item); // Datensätze zur Abfahrtstafel hinzufügen 
                 }
                 Stationtb.Clear();
                 LabelFehler3.Visible = false; 
